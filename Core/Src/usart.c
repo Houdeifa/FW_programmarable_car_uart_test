@@ -22,9 +22,50 @@
 
 /* USER CODE BEGIN 0 */
 
+#define UART_TIMEOUT 3
+
+typedef struct{
+	eUART_ID id;
+	char name[20];
+	uint32_t instance;
+	uint32_t baud_rate;
+	uint32_t oversimpling;
+	UART_HandleTypeDef handle;
+} tUART_Infos;
+
+static tUART_Infos sUARTTable[] = {
+		{.id = eID_UART2,.name = "UART2",.instance=USART2,.baud_rate = 115200,.oversimpling = UART_OVERSAMPLING_16}
+};
+
+bool UART_Init(void){
+
+	for(int i = 0;i < eID_DIO_Max ;i++){
+
+		  sUARTTable[i].handle.Instance = sUARTTable[i].instance;
+		  sUARTTable[i].handle.Init.BaudRate =  sUARTTable[i].baud_rate;
+		  sUARTTable[i].handle.Init.WordLength = UART_WORDLENGTH_8B;
+		  sUARTTable[i].handle.Init.StopBits = UART_STOPBITS_1;
+		  sUARTTable[i].handle.Init.Parity = UART_PARITY_NONE;
+		  sUARTTable[i].handle.Init.Mode = UART_MODE_TX_RX;
+		  sUARTTable[i].handle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+		  sUARTTable[i].handle.Init.OverSampling =  sUARTTable[i].oversimpling;
+		  if (HAL_UART_Init(&sUARTTable[i].handle) != HAL_OK)
+		  {
+		    return false;
+		  }
+	}
+	return true;
+}
+
+bool UART_Send(eUART_ID id,char * data,uint32_t len){
+	return (HAL_UART_Transmit(&sUARTTable[id].handle,data,len,UART_TIMEOUT) == HAL_OK);
+}
+bool UART_Receive(eUART_ID id,char * data,uint32_t len){
+	return ( HAL_UART_Receive(&sUARTTable[id].handle, data, len, UART_TIMEOUT) == HAL_OK);
+
+}
 /* USER CODE END 0 */
 
-UART_HandleTypeDef huart2;
 
 /* USART2 init function */
 
@@ -32,24 +73,14 @@ void MX_USART2_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART2_Init 0 */
-
+	if(UART_Init() == false){
+		Error_Handler();
+	}
   /* USER CODE END USART2_Init 0 */
 
   /* USER CODE BEGIN USART2_Init 1 */
 
   /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    Error_Handler();
-  }
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */

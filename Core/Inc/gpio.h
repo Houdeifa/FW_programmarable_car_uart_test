@@ -43,30 +43,18 @@ void MX_GPIO_Init(void);
 /* USER CODE BEGIN Prototypes */
 
 typedef enum{
-	eID_btn_blue,
+	eID_btn_blue = 0,
 	eID_btn_boot,
 	eID_LED4,
 	eID_LED3,
 	eID_LED5,
 	eID_LED6,
-	eID_Max
+	eID_DIO_Max
 } eDIO_ID;
-
-typedef struct{
-	eDIO_ID id;
-	char name[20];
-	uint32_t gpio;
-	uint32_t pin;
-	uint32_t mode;
-	uint32_t pull;
-	uint32_t speed;
-	uint32_t alternate;
-	int32_t default_value;
-} tDIO_Infos;
-
 
 bool DIO_Init(void);
 bool DI_Read(eDIO_ID input_index);
+bool DO_Write(eDIO_ID output_index,uint32_t value);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

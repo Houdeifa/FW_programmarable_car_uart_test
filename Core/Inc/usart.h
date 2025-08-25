@@ -29,6 +29,7 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+#include "stdbool.h"
 
 /* USER CODE END Includes */
 
@@ -36,12 +37,20 @@ extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
 
+typedef enum{
+	eID_UART2 = 0,
+	eID_UART_MAX
+} eUART_ID;
 /* USER CODE END Private defines */
 
 void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+bool UART_Init(void);
+
+bool UART_Send(eUART_ID id,char * data,uint32_t len);
+bool UART_Receive(eUART_ID id,char * data,uint32_t len);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

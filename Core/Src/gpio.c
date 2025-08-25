@@ -23,8 +23,21 @@
 
 /* USER CODE BEGIN 0 */
 
+typedef struct{
+	eDIO_ID id;
+	char name[20];
+	uint32_t gpio;
+	uint32_t pin;
+	uint32_t mode;
+	uint32_t pull;
+	uint32_t speed;
+	uint32_t alternate;
+	int32_t default_value;
+} tDIO_Infos;
 
-tDIO_Infos sDIOTable[] = {
+
+
+static tDIO_Infos sDIOTable[] = {
 		{.id = eID_btn_blue,.name = "Blue Button",.gpio=B1_GPIO_Port,.pin = B1_Pin,.mode = GPIO_MODE_EVT_RISING,.pull = GPIO_NOPULL,.default_value = -1},
 		{.id = eID_btn_boot,.name = "Boot1 Button",.gpio=BOOT1_GPIO_Port,.pin = BOOT1_Pin,.mode = GPIO_MODE_INPUT,.pull = GPIO_NOPULL,.default_value = -1},
 		{.id = eID_LED4,.name = "LED4",.gpio=GPIOD,.pin = LD4_Pin,.mode = GPIO_MODE_OUTPUT_PP,.pull = GPIO_NOPULL,.speed = GPIO_SPEED_FREQ_LOW,.default_value = -1},
@@ -64,7 +77,7 @@ void DIO_GPIO_CLK_ENABLE(uint32_t sGPIO){
 }
 
 bool DIO_Init(void){
-	for(int i = 0;i < eID_Max ;i++){
+	for(int i = 0;i < eID_DIO_Max ;i++){
 		  GPIO_InitTypeDef GPIO_InitStruct = {0};
 		  GPIO_InitStruct.Pin = sDIOTable[i].pin;
 		  GPIO_InitStruct.Mode = sDIOTable[i].mode;
@@ -79,7 +92,16 @@ bool DIO_Init(void){
 			  HAL_GPIO_WritePin(sDIOTable[i].gpio, sDIOTable[i].pin, sDIOTable[i].default_value);
 	}
 }
+bool DI_Read(eDIO_ID input_index){
+	if(input_index > eID_Max) return false;
+	return (HAL_GPIO_ReadPin(sDIOTable[input_index].gpio ,sDIOTable[input_index].pin ) == GPIO_PIN_SET);
+}
 
+bool DO_Write(eDIO_ID output_index,uint32_t value){
+
+	if(input_index > eID_Max) return false;
+	  HAL_GPIO_WritePin(sDIOTable[input_index].gpio , sDIOTable[input_index].pin , value);
+}
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/

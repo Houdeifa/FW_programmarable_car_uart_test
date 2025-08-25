@@ -102,16 +102,16 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if(HAL_GPIO_ReadPin(B1_GPIO_Port ,B1_Pin ) == GPIO_PIN_SET){
-  	  HAL_GPIO_WritePin(LD4_GPIO_Port , LD4_Pin , GPIO_PIN_SET);
+    if(DI_Read(eID_btn_blue)){
+    	DO_Write(eID_LED4,GPIO_PIN_SET);
   	  if(data_sent == false){
-  	  	HAL_UART_Transmit(&huart2,data,20,3);
+  		UART_Send(eID_UART2,data,20);
   	  	data_sent = true;
   	  }
 
     }
     else{
-  	  HAL_GPIO_WritePin(LD4_GPIO_Port , LD4_Pin , GPIO_PIN_RESET);
+    	DO_Write(eID_LED4,GPIO_PIN_RESET);
     	data_sent = false;
     }
 
