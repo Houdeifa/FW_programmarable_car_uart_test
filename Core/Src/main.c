@@ -18,11 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "i2c.h"
-#include "i2s.h"
-#include "spi.h"
 #include "usart.h"
-#include "usb_host.h"
 #include "gpio.h"
 #include "stdbool.h"
 /* Private includes ----------------------------------------------------------*/
@@ -53,7 +49,6 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void MX_USB_HOST_Process(void);
 
 /* USER CODE BEGIN PFP */
 
@@ -98,10 +93,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C1_Init();
-  MX_I2S3_Init();
-  MX_SPI1_Init();
-  MX_USB_HOST_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
@@ -111,8 +102,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-    MX_USB_HOST_Process();
     if(HAL_GPIO_ReadPin(B1_GPIO_Port ,B1_Pin ) == GPIO_PIN_SET){
   	  HAL_GPIO_WritePin(LD4_GPIO_Port , LD4_Pin , GPIO_PIN_SET);
   	  if(data_sent == false){
