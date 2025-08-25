@@ -49,7 +49,7 @@ typedef enum{
 	eID_LED3,
 	eID_LED5,
 	eID_LED6,
-	eID_DIO_Max
+	eID_DIO_MAX
 } eDIO_ID;
 
 bool DIO_Init(void);

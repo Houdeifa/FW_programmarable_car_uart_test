@@ -17,8 +17,8 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include "uart.h"
 #include "main.h"
-#include "usart.h"
 #include "gpio.h"
 #include "stdbool.h"
 /* Private includes ----------------------------------------------------------*/

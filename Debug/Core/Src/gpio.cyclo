@@ -1,3 +1,5 @@
-../Core/Src/gpio.c:36:6:DIO_GPIO_CLK_ENABLE	15
-../Core/Src/gpio.c:66:6:DIO_Init	3
-../Core/Src/gpio.c:101:6:MX_GPIO_Init	1
+../Core/Src/gpio.c:49:6:DIO_GPIO_CLK_ENABLE	15
+../Core/Src/gpio.c:79:6:DIO_Init	3
+../Core/Src/gpio.c:95:6:DI_Read	2
+../Core/Src/gpio.c:100:6:DO_Write	2
+../Core/Src/gpio.c:123:6:MX_GPIO_Init	1

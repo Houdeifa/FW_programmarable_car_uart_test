@@ -77,7 +77,7 @@ void DIO_GPIO_CLK_ENABLE(uint32_t sGPIO){
 }
 
 bool DIO_Init(void){
-	for(int i = 0;i < eID_DIO_Max ;i++){
+	for(int i = 0;i < eID_DIO_MAX ;i++){
 		  GPIO_InitTypeDef GPIO_InitStruct = {0};
 		  GPIO_InitStruct.Pin = sDIOTable[i].pin;
 		  GPIO_InitStruct.Mode = sDIOTable[i].mode;
@@ -93,14 +93,14 @@ bool DIO_Init(void){
 	}
 }
 bool DI_Read(eDIO_ID input_index){
-	if(input_index > eID_Max) return false;
+	if(input_index > eID_DIO_MAX) return false;
 	return (HAL_GPIO_ReadPin(sDIOTable[input_index].gpio ,sDIOTable[input_index].pin ) == GPIO_PIN_SET);
 }
 
 bool DO_Write(eDIO_ID output_index,uint32_t value){
 
-	if(input_index > eID_Max) return false;
-	  HAL_GPIO_WritePin(sDIOTable[input_index].gpio , sDIOTable[input_index].pin , value);
+	if(output_index > eID_DIO_MAX) return false;
+	  HAL_GPIO_WritePin(sDIOTable[output_index].gpio , sDIOTable[output_index].pin , value);
 }
 /* USER CODE END 0 */
 

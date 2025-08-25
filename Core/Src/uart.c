@@ -18,7 +18,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "usart.h"
+#include "uart.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -39,7 +39,7 @@ static tUART_Infos sUARTTable[] = {
 
 bool UART_Init(void){
 
-	for(int i = 0;i < eID_DIO_Max ;i++){
+	for(int i = 0;i < eID_UART_MAX ;i++){
 
 		  sUARTTable[i].handle.Instance = sUARTTable[i].instance;
 		  sUARTTable[i].handle.Init.BaudRate =  sUARTTable[i].baud_rate;
@@ -58,9 +58,11 @@ bool UART_Init(void){
 }
 
 bool UART_Send(eUART_ID id,char * data,uint32_t len){
+	if(id > eID_UART_MAX) return false;
 	return (HAL_UART_Transmit(&sUARTTable[id].handle,data,len,UART_TIMEOUT) == HAL_OK);
 }
 bool UART_Receive(eUART_ID id,char * data,uint32_t len){
+	if(id > eID_UART_MAX) return false;
 	return ( HAL_UART_Receive(&sUARTTable[id].handle, data, len, UART_TIMEOUT) == HAL_OK);
 
 }
