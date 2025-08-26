@@ -29,4 +29,36 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Core/Inc/tim.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/Core/Inc/tim.h</locationURI>
+		</link>
+		<link>
+			<name>Core/Src/tim.c</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/Core/Src/tim.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

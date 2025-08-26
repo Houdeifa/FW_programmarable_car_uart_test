@@ -20,6 +20,7 @@
 #include "uart.h"
 #include "main.h"
 #include "gpio.h"
+#include "tim.h"
 #include "stdbool.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -72,6 +73,7 @@ int main(void)
     bool data_sent = false;
     char data[20] = "hello world\n\r";
     char cntr = 0;
+    uint64_t timer = 0;
 
   /* USER CODE END 1 */
 
@@ -81,13 +83,13 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+  MX_TIM2_Init();
 
   /* USER CODE END SysInit */
 
@@ -102,10 +104,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+  	if(TMR_Expired(timer)){
+  		timer = TMR_Set(500000);
+  		if(GPIO_PIN_SET == DI_Read(eID_LED5))
+  			DO_Write(eID_LED5,GPIO_PIN_RESET);
+  		else
+  			DO_Write(eID_LED5,GPIO_PIN_SET);
+  	}
     if(DI_Read(eID_btn_blue)){
-    	DO_Write(eID_LED4,GPIO_PIN_SET);
+		DO_Write(eID_LED4,GPIO_PIN_SET);
   	  if(data_sent == false){
-  		UART_Send(eID_UART2,data,20);
+  		UART_Send(eID_UART2,data,sizeof(data));
   	  	data_sent = true;
   	  }
 

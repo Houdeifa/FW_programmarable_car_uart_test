@@ -1,0 +1,8 @@
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:31:6:MX_TIM2_Init	4
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:71:6:HAL_TIM_Base_MspInit	2
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:91:6:HAL_TIM_Base_MspDeInit	2
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:112:10:TMR_Now	1
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:115:10:TMR_Set	1
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:118:6:TMR_Expired	1
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:121:10:TMR_Elapsed	2
+C:/Users/pc/STM32CubeIDE/workspace_1.19.0/UART_programmer/Core/Src/tim.c:128:6:TIM2_IRQHandler	1
