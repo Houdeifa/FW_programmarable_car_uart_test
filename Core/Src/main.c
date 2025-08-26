@@ -22,6 +22,7 @@
 #include "gpio.h"
 #include "tim.h"
 #include "stdbool.h"
+#include "cmd_manager.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -97,6 +98,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+
+  CMD_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -105,6 +108,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	CMD_Process();
 	DIO_Button_Poll();
   	if(TMR_Expired(timer)){
   		timer = TMR_Set(500000);

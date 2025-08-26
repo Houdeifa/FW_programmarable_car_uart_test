@@ -51,6 +51,7 @@ bool UART_Init(void);
 
 bool UART_Send(eUART_ID id,char * data,uint32_t len);
 bool UART_Receive(eUART_ID id,char * data,uint32_t len);
+bool UART_Receive_timeout(eUART_ID id,char * data,uint32_t len,uint32_t timeout);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

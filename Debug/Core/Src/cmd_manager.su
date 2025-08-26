@@ -1,0 +1,2 @@
+../Core/Src/cmd_manager.c:42:6:CMD_Init	4	static
+../Core/Src/cmd_manager.c:49:6:CMD_Process	24	static

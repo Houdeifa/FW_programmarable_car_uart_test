@@ -1,6 +1,7 @@
 ../Core/Src/uart.c:40:6:UART_Init	3
 ../Core/Src/uart.c:60:6:UART_Send	2
 ../Core/Src/uart.c:64:6:UART_Receive	2
-../Core/Src/uart.c:74:6:MX_USART2_UART_Init	2
-../Core/Src/uart.c:92:6:HAL_UART_MspInit	2
-../Core/Src/uart.c:122:6:HAL_UART_MspDeInit	2
+../Core/Src/uart.c:69:6:UART_Receive_timeout	2
+../Core/Src/uart.c:78:6:MX_USART2_UART_Init	2
+../Core/Src/uart.c:96:6:HAL_UART_MspInit	2
+../Core/Src/uart.c:126:6:HAL_UART_MspDeInit	2

@@ -64,7 +64,11 @@ bool UART_Send(eUART_ID id,char * data,uint32_t len){
 bool UART_Receive(eUART_ID id,char * data,uint32_t len){
 	if(id > eID_UART_MAX) return false;
 	return ( HAL_UART_Receive(&sUARTTable[id].handle, data, len, UART_TIMEOUT) == HAL_OK);
+}
 
+bool UART_Receive_timeout(eUART_ID id,char * data,uint32_t len,uint32_t timeout){
+	if(id > eID_UART_MAX) return false;
+	return ( HAL_UART_Receive(&sUARTTable[id].handle, data, len, timeout) == HAL_OK);
 }
 /* USER CODE END 0 */
 
