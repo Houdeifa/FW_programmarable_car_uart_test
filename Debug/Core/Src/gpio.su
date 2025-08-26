@@ -1,5 +1,7 @@
-../Core/Src/gpio.c:49:6:DIO_GPIO_CLK_ENABLE	48	static
-../Core/Src/gpio.c:79:6:DIO_Init	40	static
-../Core/Src/gpio.c:95:6:DI_Read	16	static
-../Core/Src/gpio.c:100:6:DO_Write	16	static
-../Core/Src/gpio.c:123:6:MX_GPIO_Init	8	static
+../Core/Src/gpio.c:54:15:DI_Button_GetState	16	static
+../Core/Src/gpio.c:59:6:DIO_Button_Poll	24	static
+../Core/Src/gpio.c:138:6:DIO_GPIO_CLK_ENABLE	48	static
+../Core/Src/gpio.c:168:6:DIO_Init	40	static
+../Core/Src/gpio.c:188:6:DI_Read	16	static
+../Core/Src/gpio.c:193:6:DO_Write	16	static
+../Core/Src/gpio.c:216:6:MX_GPIO_Init	8	static

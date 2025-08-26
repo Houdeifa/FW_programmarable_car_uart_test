@@ -52,9 +52,19 @@ typedef enum{
 	eID_DIO_MAX
 } eDIO_ID;
 
+typedef enum{
+  eSTATE_Uknown = -1,
+  eSTATE_Pressed = 0,
+  eSTATE_Released,
+  eSTATE_Short_Press,
+  eSTATE_Long_Press,
+} eButton_State;
+
 bool DIO_Init(void);
 bool DI_Read(eDIO_ID input_index);
 bool DO_Write(eDIO_ID output_index,uint32_t value);
+void DIO_Button_Poll(void);
+eButton_State DI_Button_GetState(eDIO_ID id);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

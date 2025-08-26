@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
+#include "tim.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -33,8 +34,12 @@ typedef struct{
 	uint32_t speed;
 	uint32_t alternate;
 	int32_t default_value;
+	eButton_State state;
+	eButton_State real_state;
+	uint32_t press_time;
+	uint64_t pressed_timer;
+	uint64_t released_timer;
 } tDIO_Infos;
-
 
 
 static tDIO_Infos sDIOTable[] = {
@@ -46,6 +51,90 @@ static tDIO_Infos sDIOTable[] = {
 		{.id = eID_LED6,.name = "LED6",.gpio=GPIOD,.pin = LD6_Pin,.mode = GPIO_MODE_OUTPUT_PP,.pull = GPIO_NOPULL,.speed = GPIO_SPEED_FREQ_LOW,.default_value = -1}
 };
 
+eButton_State DI_Button_GetState(eDIO_ID id){
+	return sDIOTable[id].state;
+}
+
+
+void DIO_Button_Poll(void){
+	for(int i = 0;i < eID_DIO_MAX ;i++){
+		if(sDIOTable[i].mode == GPIO_MODE_INPUT || sDIOTable[i].mode == GPIO_MODE_EVT_RISING){
+			bool current_state = DI_Read(sDIOTable[i].id);
+			switch(sDIOTable[i].state){
+			case eSTATE_Uknown:
+				if(current_state == true){
+					sDIOTable[i].state = eSTATE_Pressed;
+					sDIOTable[i].real_state = eSTATE_Pressed;
+					sDIOTable[i].pressed_timer = TMR_Now();
+				}else{
+					sDIOTable[i].state = eSTATE_Released;
+					sDIOTable[i].real_state = eSTATE_Released;
+					sDIOTable[i].released_timer = TMR_Now();
+				}
+				break;
+			case eSTATE_Pressed:
+				if(current_state == false){
+					if(sDIOTable[i].real_state != eSTATE_Released){
+						sDIOTable[i].released_timer = TMR_Now();
+						sDIOTable[i].real_state = eSTATE_Released;
+					}
+					else if(sDIOTable[i].real_state == eSTATE_Released && TMR_Elapsed(sDIOTable[i].released_timer) > 50000){
+						sDIOTable[i].state = eSTATE_Released;
+						sDIOTable[i].press_time = sDIOTable[i].released_timer - sDIOTable[i].pressed_timer;
+					}
+				}else{
+					if(TMR_Elapsed(sDIOTable[i].pressed_timer) >= 50000UL){ // 50 ms
+						sDIOTable[i].state = eSTATE_Short_Press;
+						sDIOTable[i].real_state = eSTATE_Short_Press;
+					}
+				}
+				break;
+			case eSTATE_Released:
+				if(current_state == true){
+					sDIOTable[i].state = eSTATE_Pressed;
+					sDIOTable[i].real_state = eSTATE_Pressed;
+					sDIOTable[i].pressed_timer = TMR_Now();
+				}else{
+					sDIOTable[i].released_timer = TMR_Now();
+				}
+				break;
+			case eSTATE_Short_Press:
+				if(current_state == false){
+					if(sDIOTable[i].real_state != eSTATE_Released){
+						sDIOTable[i].released_timer = TMR_Now();
+						sDIOTable[i].real_state = eSTATE_Released;
+					}
+					else if(sDIOTable[i].real_state == eSTATE_Released && TMR_Elapsed(sDIOTable[i].released_timer) > 50000){
+						sDIOTable[i].state = eSTATE_Released;
+						sDIOTable[i].press_time = sDIOTable[i].released_timer - sDIOTable[i].pressed_timer;
+					}
+				}else{
+					if(TMR_Elapsed(sDIOTable[i].pressed_timer) >= 3000000UL){ // 3 secondes
+						sDIOTable[i].state = eSTATE_Long_Press;
+						sDIOTable[i].real_state = eSTATE_Long_Press;
+					}
+				}
+				break;
+			case eSTATE_Long_Press:
+				if(current_state == false){
+					if(sDIOTable[i].real_state != eSTATE_Released){
+						sDIOTable[i].released_timer = TMR_Now();
+						sDIOTable[i].real_state = eSTATE_Released;
+					}
+					else if(sDIOTable[i].real_state == eSTATE_Released && TMR_Elapsed(sDIOTable[i].released_timer) > 50000){
+						sDIOTable[i].state = eSTATE_Released;
+						sDIOTable[i].press_time = sDIOTable[i].released_timer - sDIOTable[i].pressed_timer;
+					}
+				}else{
+				}
+				break;
+			default:
+				sDIOTable[i].state = eSTATE_Uknown;
+				break;
+			}
+		}
+	}
+}
 void DIO_GPIO_CLK_ENABLE(uint32_t sGPIO){
 
 	switch(sGPIO){
@@ -84,6 +173,10 @@ bool DIO_Init(void){
 		  GPIO_InitStruct.Pull = sDIOTable[i].pull;
 		  GPIO_InitStruct.Alternate = sDIOTable[i].alternate;
 		  GPIO_InitStruct.Speed = sDIOTable[i].speed;
+		  sDIOTable[i].state = eSTATE_Uknown;
+		  sDIOTable[i].press_time = 0;
+		  sDIOTable[i].pressed_timer = 0;
+		  sDIOTable[i].released_timer = 0;
 
 		  DIO_GPIO_CLK_ENABLE(sDIOTable[i].gpio);
 

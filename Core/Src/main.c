@@ -72,6 +72,7 @@ int main(void)
 
     bool data_sent = false;
     char data[20] = "hello world\n\r";
+    char data2[10] = "s =          \n\r";
     char cntr = 0;
     uint64_t timer = 0;
 
@@ -104,6 +105,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	DIO_Button_Poll();
   	if(TMR_Expired(timer)){
   		timer = TMR_Set(500000);
   		if(GPIO_PIN_SET == DI_Read(eID_LED5))
@@ -111,7 +113,7 @@ int main(void)
   		else
   			DO_Write(eID_LED5,GPIO_PIN_SET);
   	}
-    if(DI_Read(eID_btn_blue)){
+    if(DI_Button_GetState(eID_btn_blue) >= eSTATE_Short_Press){
 		DO_Write(eID_LED4,GPIO_PIN_SET);
   	  if(data_sent == false){
   		UART_Send(eID_UART2,data,sizeof(data));
