@@ -1,2 +1,6 @@
-../Core/Src/cmd_manager.c:42:6:CMD_Init	4	static
-../Core/Src/cmd_manager.c:49:6:CMD_Process	24	static
+../Core/Src/cmd_manager.c:49:13:help_callback	8	static
+../Core/Src/cmd_manager.c:53:13:version_callback	8	static
+../Core/Src/cmd_manager.c:57:13:reset_callback	8	static
+../Core/Src/cmd_manager.c:61:13:task_code_receive_callback	8	static
+../Core/Src/cmd_manager.c:66:6:CMD_Init	4	static
+../Core/Src/cmd_manager.c:74:6:CMD_Process	24	static
