@@ -86,6 +86,9 @@ void CMD_Process(){
 	{
 		case eSTATE_Init:
 			//initialization
+			UART_Send(eID_UART2,"CMD Manager Initialized\r\n",25);
+			buffer_index = 0;
+			memset(buffer,0,sizeof(buffer));
 			sStateMachine = eSTATE_Ready;
 			break;
 		case eSTATE_Ready:

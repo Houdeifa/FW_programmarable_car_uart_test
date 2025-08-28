@@ -133,6 +133,22 @@ SECTIONS
     . = ALIGN(4);
   } >FLASH
 
+  .infos_buffer (NOLOAD) :
+  {
+    . = ORIGIN(RAM);        /* Start of RAM: 0x20000000 */
+    _sinfos_buffer = .;
+    . = . + 0x400;          /* 1KB */
+    _einfos_buffer = .;
+  } > RAM
+
+  .program_buffer (NOLOAD) :
+  {
+    . = _einfos_buffer;     /* Immediately after .infos_buffer */
+    _sprogram_buffer = .;
+    . = . + 0x5000;         /* 20KB */
+    _eprogram_buffer = .;
+  } > RAM
+
   /* Used by the startup to initialize data */
   _sidata = LOADADDR(.data);
 

@@ -2,5 +2,6 @@
 ../Core/Src/cmd_manager.c:53:13:version_callback	1
 ../Core/Src/cmd_manager.c:57:13:reset_callback	1
 ../Core/Src/cmd_manager.c:61:13:task_code_receive_callback	1
-../Core/Src/cmd_manager.c:66:6:CMD_Init	1
-../Core/Src/cmd_manager.c:74:6:CMD_Process	16
+../Core/Src/cmd_manager.c:66:6:CMD_SetToReadyState	1
+../Core/Src/cmd_manager.c:70:6:CMD_Init	1
+../Core/Src/cmd_manager.c:78:6:CMD_Process	16

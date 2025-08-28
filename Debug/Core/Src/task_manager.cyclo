@@ -1,0 +1,6 @@
+../Core/Src/task_manager.c:21:13:utility1	1
+../Core/Src/task_manager.c:25:13:utility2	1
+../Core/Src/task_manager.c:29:13:utility3	1
+../Core/Src/task_manager.c:51:6:TASK_Manager_Init	1
+../Core/Src/task_manager.c:61:6:TASK_Manager_StartReceiveTaskCode	1
+../Core/Src/task_manager.c:66:6:TASK_Manager_Process	23
