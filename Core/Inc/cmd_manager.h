@@ -11,4 +11,6 @@
 void CMD_Init();
 void CMD_Process();
 
+void CMD_SetToReadyState(void);
+
 #endif /* INC_CMD_MANAGER_H_ */

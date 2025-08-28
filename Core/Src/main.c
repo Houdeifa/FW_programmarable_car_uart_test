@@ -100,6 +100,8 @@ int main(void)
   MX_USART2_UART_Init();
 
   CMD_Init();
+
+  TASK_Manager_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -110,6 +112,7 @@ int main(void)
   {
 
 	CMD_Process();
+  TASK_Manager_Process();
 	DIO_Button_Poll();
   	if(TMR_Expired(timer)){
   		timer = TMR_Set(500000);

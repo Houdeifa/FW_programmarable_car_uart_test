@@ -60,8 +60,12 @@ static void reset_callback(void){
 }
 static void task_code_receive_callback(void){
 	UART_Send(eID_UART2,"Receiving the task code ...\r\n",30);
+	TASK_Manager_StartReceiveTaskCode();
 }
 
+void CMD_SetToReadyState(void){
+	sStateMachine = eSTATE_Ready;
+}
 
 void CMD_Init(){
 	sStateMachine = eSTATE_Uknown;
